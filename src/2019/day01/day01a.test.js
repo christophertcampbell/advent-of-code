@@ -2,7 +2,7 @@ var assert = require('assert');
 import { input } from './day01.input';
 import * as day01a from './day01a';
 
-describe('Day 1 Challenge', function() {
+describe('Day 1 Challenge - Part 1', function() {
   describe('Challenge parameters', function() {
     it('mass of 12 should require 2 fuel units', function() {
       assert.equal(day01a.calculateFuel(12), 2);
