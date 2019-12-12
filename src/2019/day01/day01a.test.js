@@ -1,4 +1,5 @@
 var assert = require('assert');
+import { input } from './day01.input';
 import * as day01a from './day01a';
 
 describe('Day 1 Challenge', function() {
@@ -27,7 +28,7 @@ describe('Day 1 Challenge', function() {
   });
 
   describe('Output', function() {
-    it(`output is: ${day01a.run()}`, function() {
+    it(`output is: ${day01a.run(input)}`, function() {
       assert.equal(true, true);
     });
   })
