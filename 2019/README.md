@@ -1,6 +1,6 @@
 # Advent of Code - 2019
 
-Solutions to [Advent of Code](https://adventofcode.com/) challenges for the year 2019, written in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/javascript).
+Solutions to [Advent of Code](https://adventofcode.com/2019) challenges for the year 2019, written in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/javascript).
 
 ## Running the Tests
 
