@@ -12,6 +12,6 @@
   "license": "MIT",
   "devDependencies": {
     "esm": "^3.2.25",
-    "mocha": "^6.2.2"
+    "mocha": "^8.1.3"
   }
 }
