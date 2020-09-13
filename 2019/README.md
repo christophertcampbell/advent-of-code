@@ -8,21 +8,29 @@ I structure each part of each day's challenge into two parts: a solution file an
 
 Each day also contains one or more input files containing the puzzle's offical input.
 
+### To install NPM packages (first time only):
+
+`npm install`
+
 ### To run all tests
 
-1. Install local NPM packages (first time only):
-	* `npm install`
-1. Run all tests:
-	* `npm run test`
+`npm run test`
 
 ### To run a single day's tests
+
+`npm run test:day01`
+
+* Note: `day01`, `day02`, `day03` etc must exactly match the day's sub-directory name
+* Each day contains two challenges, each with its own test. This command will run both of a day's tests.
+
+### Manual method to directly run a single test
 
 1. Install Mocha and ESM globally:
 	* `npm install mocha esm -g`
 2. Navigate to the day's folder and run the test:
 	* `mocha day01a.test.js -r esm`
 
-ESM allows testing ES6 modules with Mocha
+* ESM allows testing ES6 modules with Mocha
 
 ## License
 

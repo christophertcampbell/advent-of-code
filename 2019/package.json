@@ -4,7 +4,9 @@
   "description": "Javascript solutions for Advent of Code 2019",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./src/**/*.test.js --recursive --require esm"
+    "test": "mocha ./src/**/*.test.js --recursive --require esm",
+    "test:day01": "mocha ./src/day01/*.test.js --recursive --require esm",
+    "test:day02": "mocha ./src/day02/*.test.js --recursive --require esm"
   },
   "author": "Chris Campbell",
   "license": "MIT",
