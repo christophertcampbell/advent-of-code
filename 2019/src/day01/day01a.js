@@ -11,7 +11,7 @@ export function FuelCalculator() {
     return Array.isArray(mass) ? calculateMultiple(mass) : calculateSingle(mass);
   }
 
-  // Calculates fule requirements for multiple modules
+  // Calculates fuel requirements for multiple modules
   function calculateMultiple(masses) {
     let totalFuelRequired = 0;
     masses.forEach(function(mass) {
@@ -20,7 +20,7 @@ export function FuelCalculator() {
     return totalFuelRequired;
   }
 
-  // Calculate fule requirements for a single module
+  // Calculates fuel requirements for a single module
   function calculateSingle(mass) {
     if (isNaN(mass)) return -1;
     return Math.floor(mass/3) - 2;
