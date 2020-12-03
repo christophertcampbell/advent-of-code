@@ -14,16 +14,50 @@ public class Day01
     */
    public int partA(int[] nums)
    {     
-      // Sort the array so we can use a binary search
-      Arrays.sort(nums);
-      
+      return getProductOfTwoNumbersWhoseSumEquals(nums, 2020);
+   }
+
+   /*
+    * Search an array of integers for three numbers
+    * whose sum is 2020, and return the product of
+    * the three numbers
+    */
+   public int partB(int[] nums)
+   {
       for (int num : nums)
       {
          /*
-          * If the complementary number is present in the array,
-          * return the product
+          * For each number, determine the matching addend
+          * which would equal 2020 and then check if there
+          * are two numbers in the array which sum up to
+          * equal the matching addend
           */
          int matchingNum = 2020 - num;
+         int matchingProduct = getProductOfTwoNumbersWhoseSumEquals(nums, matchingNum);
+         if (matchingProduct > 0) {
+            return num * matchingProduct;
+         }
+      }
+
+      return -1;
+   }
+
+   /*
+    * Searches an array for two numbers whose sum equals the target sum
+    * Returns the product of the two numbers, or -1 if a match is not found
+    */
+   private int getProductOfTwoNumbersWhoseSumEquals(int[] nums, int targetSum)
+   {
+      // Sort the array so we can use a binary search
+      Arrays.sort(nums);
+
+      for (int num : nums)
+      {
+         /*
+            * If the complementary number is present in the array,
+            * return the product
+            */
+         int matchingNum = targetSum - num;
          if (Arrays.binarySearch(nums, matchingNum) >= 0) {
             return num * matchingNum;
          }
@@ -58,5 +92,7 @@ public class Day01
       
       System.out.printf("Day 1 - Part A - Test output: %d\n", day01.partA(testInput));
       System.out.printf("Day 1 - Part A - Challenge output: %d\n", day01.partA(challengeInput));
+      System.out.printf("Day 1 - Part B - Test output: %d\n", day01.partB(testInput));
+      System.out.printf("Day 1 - Part B - Challenge output: %d\n", day01.partB(challengeInput));
    }
 }
