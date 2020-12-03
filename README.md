@@ -6,9 +6,14 @@
 
 This repository is my place to keep my solutions to Advent of Code challenges.
 
-## Running the Tests
+## Running the Solutions
 
-I organize my solutions to each day's challenges into source and test files, along with an input. To run the tests, see each individual year for instructions based on the particular language that I have used.
+I organize my solutions by year and day. To run the solutions, see each individual year for instructions based on the particular language that I have used.
+
+## Programming Languages
+
+* [2020 - Java](./2020/README.md)
+* [2019 - JavaScript](./2019/README.md)
 
 ## License
 
