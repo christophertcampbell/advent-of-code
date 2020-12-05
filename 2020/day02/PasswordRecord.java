@@ -7,18 +7,18 @@ public class PasswordRecord
 {
 	private int minCount;
 	private int maxCount;
-	private char searchChar;
+	private char validationChar;
 	private String password;
 
 	/**
 	 * Constructs a password record, with information including
 	 * the password, the validation character and the parameters
 	 */
-	public PasswordRecord(int minCount, int maxCount, char searchChar, String password)
+	public PasswordRecord(int minCount, int maxCount, char validationChar, String password)
 	{
 		this.minCount = minCount;
 		this.maxCount = maxCount;
-		this.searchChar = searchChar;
+		this.validationChar = validationChar;
 		this.password = password;
 	}
 
@@ -29,7 +29,7 @@ public class PasswordRecord
 	 */
 	public boolean validate()
 	{
-		int occurrences = countOccurrences(password, searchChar);
+		int occurrences = countOccurrencesOfValidationChar();
 		return occurrences >= minCount && occurrences <= maxCount;
 	}
 
@@ -37,12 +37,12 @@ public class PasswordRecord
 	 * Returns a count of the number of times the search character
 	 * occurs in the password
 	 */
-	private int countOccurrences(String str, char searchChar)
+	private int countOccurrencesOfValidationChar()
 	{
 		int count = 0;
-		for (int i = 0; i < str.length(); i++)
+		for (int i = 0; i < password.length(); i++)
 		{
-			if (str.charAt(i) == searchChar) {
+			if (password.charAt(i) == validationChar) {
 				count++;
 			}
 		}
