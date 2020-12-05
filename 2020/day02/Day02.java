@@ -1,4 +1,4 @@
-/*
+/**
  * Solution to Advent of Code 2020, Day 02
  * by Chris Campbell
  */
@@ -52,7 +52,7 @@ public class Day02
 		return null;
 	}
 
-	/*
+	/**
      * Runs the day's solutions
 	 */
 	public static void main(String[] args)
