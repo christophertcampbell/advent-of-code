@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class FileIO
 {
 	/*
-	 * Gets the input from the text file
+	 * Returns the content of a file as an array of strings
 	 */
 	public static String[] readAsStrings(String filepath)
 	{

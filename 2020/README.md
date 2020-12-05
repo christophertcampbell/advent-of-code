@@ -4,7 +4,7 @@ Solutions to [Advent of Code 2020](https://adventofcode.com/2020) challenges, wr
 
 ## Organization
 
-I organize most solutions here into multiple files with a package name corresponding to the day (eg: day02). I organize common helper files into a common location which all days can import from.
+I organize most solutions here into multiple files with a package name corresponding to the day (eg: day02). I organize helper files into a common location which all days can import from.
 
 Simpler solutions (eg: day01) may be contained in a single Java file for simplicity.
 
