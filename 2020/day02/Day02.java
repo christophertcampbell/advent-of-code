@@ -18,6 +18,8 @@ public class Day02
 
 	/**
 	 * Returns a count of how many of the provided password records are valid
+	 * 
+	 * Uses validation method 1
 	 */
 	public int partA(String[] input)
 	{
@@ -26,7 +28,27 @@ public class Day02
 		for (String entry : input)
 		{
 			PasswordRecord passwordRecord = parseRecord(entry);
-			if (validator.validate(passwordRecord)) {
+			if (validator.validateMethod1(passwordRecord)) {
+				count++;
+			}
+		}
+
+		return count;
+	}
+
+	/**
+	 * Returns a count of how many of the provided password records are valid
+	 * 
+	 * Uses validation method 2
+	 */
+	public int partB(String[] input)
+	{
+		PasswordValidator validator = new PasswordValidator();
+		int count = 0;
+		for (String entry : input)
+		{
+			PasswordRecord passwordRecord = parseRecord(entry);
+			if (validator.validateMethod2(passwordRecord)) {
 				count++;
 			}
 		}
@@ -65,5 +87,7 @@ public class Day02
 
         System.out.printf("Day 2 - Part A - Test output: %d : Expected: %d\n", day02.partA(testInput), 2);
         System.out.printf("Day 2 - Part A - Challenge output: %d : Expected: %d\n", day02.partA(realInput), 447);
+        System.out.printf("Day 2 - Part B - Test output: %d : Expected: %d\n", day02.partB(testInput), 1);
+        System.out.printf("Day 2 - Part B - Challenge output: %d : Expected: %d\n", day02.partB(realInput), 249);
 	}
 }
