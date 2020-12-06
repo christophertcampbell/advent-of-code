@@ -1,12 +1,9 @@
 package day02;
 
-/**
- * A password record
- */
 public class PasswordRecord
 {
-	private int minCount;
-	private int maxCount;
+	private int index1;
+	private int index2;
 	private char validationChar;
 	private String password;
 
@@ -14,39 +11,31 @@ public class PasswordRecord
 	 * Constructs a password record, with information including
 	 * the password, the validation character and the parameters
 	 */
-	public PasswordRecord(int minCount, int maxCount, char validationChar, String password)
+	public PasswordRecord(String password, char validationChar, int index1, int index2)
 	{
-		this.minCount = minCount;
-		this.maxCount = maxCount;
-		this.validationChar = validationChar;
 		this.password = password;
+		this.validationChar = validationChar;
+		this.index1 = index1;
+		this.index2 = index2;
 	}
 
-	/**
-	 * Validates the password record
-	 * 
-	 * Returns true if the password is valid, false otherwise
-	 */
-	public boolean validate()
+	public String getPassword()
 	{
-		int occurrences = countOccurrencesOfValidationChar();
-		return occurrences >= minCount && occurrences <= maxCount;
+		return password;
 	}
 
-	/**
-	 * Returns a count of the number of times the search character
-	 * occurs in the password
-	 */
-	private int countOccurrencesOfValidationChar()
+	public int getIndex1()
 	{
-		int count = 0;
-		for (int i = 0; i < password.length(); i++)
-		{
-			if (password.charAt(i) == validationChar) {
-				count++;
-			}
-		}
+		return index1;
+	}
 
-		return count;
+	public int getIndex2()
+	{
+		return index2;
+	}
+
+	public char getValidationChar()
+	{
+		return validationChar;
 	}
 }

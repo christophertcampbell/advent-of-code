@@ -21,11 +21,12 @@ public class Day02
 	 */
 	public int partA(String[] input)
 	{
+		PasswordValidator validator = new PasswordValidator();
 		int count = 0;
 		for (String entry : input)
 		{
 			PasswordRecord passwordRecord = parseRecord(entry);
-			if (passwordRecord != null && passwordRecord.validate()) {
+			if (validator.validate(passwordRecord)) {
 				count++;
 			}
 		}
@@ -42,11 +43,11 @@ public class Day02
 	{
 		Matcher matcher = PARSE_PATTERN.matcher(entry);
 		if (matcher.find()) {
-			int minCount = Integer.parseInt(matcher.group(1));
-			int maxCount = Integer.parseInt(matcher.group(2));
-			char searchChar = matcher.group(3).charAt(0);
+			int index1 = Integer.parseInt(matcher.group(1));
+			int index2 = Integer.parseInt(matcher.group(2));
+			char validationChar = matcher.group(3).charAt(0);
 			String password = matcher.group(4);
-			return new PasswordRecord(minCount, maxCount, searchChar, password);
+			return new PasswordRecord(password, validationChar, index1, index2);
 		}
 
 		return null;
