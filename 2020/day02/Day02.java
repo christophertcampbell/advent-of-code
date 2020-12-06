@@ -17,38 +17,33 @@ public class Day02
 	private static final Pattern PARSE_PATTERN = Pattern.compile("^(\\d+)-(\\d+)\\s(\\w):\\s(\\w+)$", Pattern.CASE_INSENSITIVE);
 
 	/**
-	 * Returns a count of how many of the provided password records are valid
-	 * 
-	 * Uses validation method 1
+	 * Returns a count of how many passwords are valid by method 1
 	 */
 	public int partA(String[] input)
 	{
-		PasswordValidator validator = new PasswordValidator();
-		int count = 0;
-		for (String entry : input)
-		{
-			PasswordRecord passwordRecord = parseRecord(entry);
-			if (validator.validateMethod1(passwordRecord)) {
-				count++;
-			}
-		}
-
-		return count;
+		PasswordValidatorMethod1 validator = new PasswordValidatorMethod1();
+		return countValidPasswords(input, validator);
 	}
 
 	/**
-	 * Returns a count of how many of the provided password records are valid
-	 * 
-	 * Uses validation method 2
+	 * Returns a count of how many passwords are valid by method 2
 	 */
 	public int partB(String[] input)
 	{
-		PasswordValidator validator = new PasswordValidator();
+		PasswordValidatorMethod2 validator = new PasswordValidatorMethod2();
+		return countValidPasswords(input, validator);
+	}
+
+	/**
+	 * Returns a count of how many passwords are valid
+	 */
+	private int countValidPasswords(String[] input, PasswordValidator validator)
+	{
 		int count = 0;
 		for (String entry : input)
 		{
 			PasswordRecord passwordRecord = parseRecord(entry);
-			if (validator.validateMethod2(passwordRecord)) {
+			if (validator.validate(passwordRecord)) {
 				count++;
 			}
 		}
