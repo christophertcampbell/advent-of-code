@@ -3,6 +3,8 @@
  * by Chris Campbell
  */
 
+package day01;
+
 import java.util.Arrays;
 
 public class Day01
