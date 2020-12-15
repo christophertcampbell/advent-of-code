@@ -19,7 +19,8 @@ public class FileIO
 			Scanner sc = new Scanner(file);
 			while (sc.hasNextLine()) {
 				input.add(sc.nextLine());
-			}
+            }
+            sc.close();
 		}
 		catch (Exception e)
 		{
