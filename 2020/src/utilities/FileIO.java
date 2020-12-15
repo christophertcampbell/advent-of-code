@@ -7,19 +7,19 @@ import java.util.Scanner;
 
 public class FileIO
 {
-	/*
-	 * Returns the content of a file as an array of strings
-	 */
-	public static String[] readAsStrings(String filepath)
-	{
-		ArrayList<String> input = new ArrayList<String>();
+    /*
+     * Returns the content of a file as an array of strings
+     */
+    public static String[] readAsStrings(String filepath)
+    {
+        ArrayList<String> input = new ArrayList<String>();
 
-		try
-		{
-			File file = new File(filepath);
-			Scanner sc = new Scanner(file);
-			while (sc.hasNextLine()) {
-				input.add(sc.nextLine());
+        try
+        {
+            File file = new File(filepath);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                input.add(sc.nextLine());
             }
             sc.close();
         }
@@ -39,13 +39,13 @@ public class FileIO
                 return readAsStrings(parts[1]);
             }
 
-			System.out.println("Exception: " + e.getMessage());
+            System.out.println("Exception: " + e.getMessage());
         }
-		catch (Exception e)
-		{
-			System.out.println("Exception: " + e.getMessage());
-		}
+        catch (Exception e)
+        {
+            System.out.println("Exception: " + e.getMessage());
+        }
 
-		return input.toArray(new String[0]);
-	}
+        return input.toArray(new String[0]);
+    }
 }
