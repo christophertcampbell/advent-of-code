@@ -76,7 +76,7 @@ public class Day02
     public static void main(String[] args)
     {
         String[] testInput = {"1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"};
-        String[] realInput = FileIO.readAsStrings("Day02Input.txt");
+        String[] realInput = FileIO.readAsStrings("2020/src/day02/Day02Input.txt");
 
         Day02 day02 = new Day02();
 

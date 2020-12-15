@@ -1,6 +1,7 @@
 package utilities;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,7 +22,25 @@ public class FileIO
 				input.add(sc.nextLine());
             }
             sc.close();
-		}
+        }
+        catch (FileNotFoundException e)
+        {
+            /**
+             * File was not found
+             * 
+             * If the filepath contains subdirectories, remove
+             * the first one and try again. Allows the file to
+             * be found no matter where the 'java' run command
+             * is executed within the project directory structure
+             */
+            if (filepath.contains("/"))
+            {
+                String[] parts = filepath.split("/", 2);
+                return readAsStrings(parts[1]);
+            }
+
+			System.out.println("Exception: " + e.getMessage());
+        }
 		catch (Exception e)
 		{
 			System.out.println("Exception: " + e.getMessage());
