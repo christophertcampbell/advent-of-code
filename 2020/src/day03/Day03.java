@@ -11,21 +11,26 @@ public class Day03
 {
     public int partA(String[] input)
     {
+        return countOccurrences(input, '#', 0, 0, 3, 1);
+    }
+
+    /**
+     * Counts the occurrences of a specific char within the input array,
+     * starting at a specified xy position and moving after each
+     * iteration until the end of the array is reached
+     */
+    public int countOccurrences(String[] input, char searchChar, int startX, int startY, int stepX, int stepY)
+    {
         int collisionCount = 0;
-        int width = input[0].length();
 
-        // Starting position
-        int x = 0;
-        int y = 0;
-
-        // Distance to move each iteration
-        int stepX = 3;
-        int stepY = 1;
+        // Initialize working position
+        int x = startX;
+        int y = startY;
 
         while (y < input.length)
         {
             // Check for collision
-            if (input[y].charAt(x) == '#') {
+            if (input[y].charAt(x) == searchChar) {
                 collisionCount++;
             }
 
@@ -34,8 +39,8 @@ public class Day03
             y += stepY;
 
             // Check if new position is out-of-bounds and wrap if necessary
-            if (x >= width) {
-                x -= width;
+            if (y < input.length && x >= input[y].length()) {
+                x -= input[y].length();
             }
         }
 
