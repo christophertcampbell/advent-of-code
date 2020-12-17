@@ -6,6 +6,7 @@
 package day01;
 
 import java.util.Arrays;
+import utilities.Test;
 
 public class Day01
 {
@@ -92,9 +93,9 @@ public class Day01
     {
         Day01 day01 = new Day01();
         
-        System.out.printf("Day 1 - Part A - Test output: %d\n", day01.partA(testInput));
-        System.out.printf("Day 1 - Part A - Challenge output: %d\n", day01.partA(challengeInput));
-        System.out.printf("Day 1 - Part B - Test output: %d\n", day01.partB(testInput));
-        System.out.printf("Day 1 - Part B - Challenge output: %d\n", day01.partB(challengeInput));
+        Test.assertEqual("Day 1 - Part A - Test input", day01.partA(testInput), 514579);
+        Test.assertEqual("Day 1 - Part A - Challenge input", day01.partA(challengeInput), 692916);
+        Test.assertEqual("Day 1 - Part B - Test input", day01.partB(testInput), 241861950);
+        Test.assertEqual("Day 1 - Part B - Challenge input", day01.partB(challengeInput), 289270976);
     }
 }

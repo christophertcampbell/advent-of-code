@@ -8,6 +8,7 @@ package day02;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import utilities.FileIO;
+import utilities.Test;
 
 public class Day02
 {
@@ -80,9 +81,9 @@ public class Day02
 
         Day02 day02 = new Day02();
 
-        System.out.printf("Day 2 - Part A - Test output: %d : Expected: %d\n", day02.partA(testInput), 2);
-        System.out.printf("Day 2 - Part A - Challenge output: %d : Expected: %d\n", day02.partA(realInput), 447);
-        System.out.printf("Day 2 - Part B - Test output: %d : Expected: %d\n", day02.partB(testInput), 1);
-        System.out.printf("Day 2 - Part B - Challenge output: %d : Expected: %d\n", day02.partB(realInput), 249);
+        Test.assertEqual("Day 2 - Part A - Test input", day02.partA(testInput), 2);
+        Test.assertEqual("Day 2 - Part A - Challenge input", day02.partA(realInput), 447);
+        Test.assertEqual("Day 2 - Part B - Test input", day02.partB(testInput), 1);
+        Test.assertEqual("Day 2 - Part B - Challenge input", day02.partB(realInput), 249);
     }
 }

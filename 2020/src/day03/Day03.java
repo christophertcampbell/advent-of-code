@@ -6,6 +6,7 @@
 package day03;
 
 import utilities.FileIO;
+import utilities.Test;
 
 public class Day03
 {
@@ -87,9 +88,9 @@ public class Day03
 
         Day03 day03 = new Day03();
 
-        System.out.printf("Day 3 - Part A - Test output: %d : Expected: %d\n", day03.partA(testInput), 7);
-        System.out.printf("Day 3 - Part A - Challenge output: %d : Expected: %d\n", day03.partA(realInput), 272);
-        System.out.printf("Day 3 - Part B - Test output: %d : Expected: %d\n", day03.partB(testInput), 336);
-        System.out.printf("Day 3 - Part B - Challenge output: %d : Expected: %d\n", day03.partB(realInput), 3898725600L);
+        Test.assertEqual("Day 3 - Part A - Test input", day03.partA(testInput), 7);
+        Test.assertEqual("Day 3 - Part A - Challenge input", day03.partA(realInput), 272);
+        Test.assertEqual("Day 3 - Part B - Test input", day03.partB(testInput), 336);
+        Test.assertEqual("Day 3 - Part B - Challenge input", day03.partB(realInput), 3898725600L);
     }
 }
