@@ -9,13 +9,43 @@ import utilities.FileIO;
 
 public class Day03
 {
+    /**
+     * Counts occurrences of a character on a path
+     * through an array of strings
+     */
     public int partA(String[] input)
     {
         return countOccurrences(input, '#', 0, 0, 3, 1);
     }
 
     /**
-     * Counts the occurrences of a specific char within the input array,
+     * Counts occurrences of a character on a
+     * number of paths through an array of strings
+     * and multiplies the counts together
+     */
+    public long partB(String[] input)
+    {
+        int[] nums = new int[5];
+
+        // Get counts
+        nums[0] = countOccurrences(input, '#', 0, 0, 1, 1);
+        nums[1] = countOccurrences(input, '#', 0, 0, 3, 1);
+        nums[2] = countOccurrences(input, '#', 0, 0, 5, 1);
+        nums[3] = countOccurrences(input, '#', 0, 0, 7, 1);
+        nums[4] = countOccurrences(input, '#', 0, 0, 1, 2);
+
+        // Multiply all counts together
+        long result = 1;
+        for (int num : nums)
+        {
+            result *= num;
+        }
+
+        return result;
+    }
+
+    /**
+     * Counts the occurrences of a specific character within the input array,
      * starting at a specified xy position and moving after each
      * iteration until the end of the array is reached
      */
@@ -46,7 +76,10 @@ public class Day03
 
         return collisionCount;
     }
-    
+
+    /**
+     * Runs the day's solutions
+     */
     public static void main(String[] args)
     {
         String[] testInput = FileIO.readAsStrings("2020/src/day03/Day03TestInput.txt");
@@ -56,5 +89,7 @@ public class Day03
 
         System.out.printf("Day 3 - Part A - Test output: %d : Expected: %d\n", day03.partA(testInput), 7);
         System.out.printf("Day 3 - Part A - Challenge output: %d : Expected: %d\n", day03.partA(realInput), 272);
+        System.out.printf("Day 3 - Part B - Test output: %d : Expected: %d\n", day03.partB(testInput), 336);
+        System.out.printf("Day 3 - Part B - Challenge output: %d : Expected: %d\n", day03.partB(realInput), 3898725600L);
     }
 }
