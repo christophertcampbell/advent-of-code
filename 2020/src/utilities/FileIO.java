@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class FileIO
 {
-    /*
-     * Returns the content of a file as an array of strings
+    /**
+     * Returns the contents of a file as an array of strings
      */
     public static String[] readAsStrings(String filepath)
     {
@@ -47,5 +47,27 @@ public class FileIO
         }
 
         return input.toArray(new String[0]);
+    }
+
+    /**
+     * Returns the contents of a file as an array of integers
+     */
+    public static int[] readAsInts(String filepath)
+    {
+        String[] strings = readAsStrings(filepath);
+        int[] input = new int[strings.length];
+        for (int i = 0; i < strings.length; i++)
+        {
+            try
+            {
+                input[i] = Integer.parseInt(strings[i]);
+            }
+            catch (Exception e)
+            {
+                System.out.println("Exception: " + e.getMessage());
+            }
+        }
+
+        return input;
     }
 }
