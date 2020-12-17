@@ -4,20 +4,33 @@ Solutions to [Advent of Code 2020](https://adventofcode.com/2020) challenges, wr
 
 ## Organization
 
-I have organized the solutions here into multiple files with a package name corresponding to the day (eg: day01). I have organized helper files into a common location which all days can import from.
+I have organized each day's solution into a package corresponding to the day (eg: day01). Helper utilities are in a common location which all days can import from.
 
-Simpler solutions (eg: day01) may be contained in a single Java file for simplicity.
+Each day's code is organized as follows:
 
-## Compiling and running the solutions:
+* A main file (eg: Day01.java)
+* Input .txt files (test and challenge)
+* (Optional) One or more classes, if the solution warrants it
 
-### From within the `/src` directory:
+## Compiling and running the solutions
+
+### All days together
+
+In the terminal, inside the `src/` directory:
+
+    > javac AllDays.java
+    > java AllDays
+
+### Individual day
+
+#### From within the `/src` directory
 
 In the terminal, inside the `src/` directory:
 
     > javac day01/Day01.java
     > java day01.Day01
 
-### From within the specific day's directory:
+#### From within the specific day's directory
 
 In the terminal, inside the day's directory (eg: `src/day01`):
 

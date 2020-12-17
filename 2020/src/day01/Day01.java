@@ -73,7 +73,7 @@ public class Day01
     /**
      * Runs the day's solutions
      */
-    public static void main(String[] args)
+    public static void run()
     {
         int[] testInput = FileIO.readAsInts("2020/src/Day01/Day01TestInput.txt");
         int[] realInput = FileIO.readAsInts("2020/src/Day01/Day01Input.txt");
@@ -84,5 +84,10 @@ public class Day01
         Test.assertEqual("Day 1 - Part A - Challenge input", day01.partA(realInput), 692916);
         Test.assertEqual("Day 1 - Part B - Test input", day01.partB(testInput), 241861950);
         Test.assertEqual("Day 1 - Part B - Challenge input", day01.partB(realInput), 289270976);
+    }
+
+    public static void main(String[] args)
+    {
+        run();
     }
 }
