@@ -2,30 +2,25 @@ package day04;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import utilities.FileIO;
 import utilities.Test;
 
 public class Day04
 {
-    private static final Pattern INPUT_PARSE_PATTERN = Pattern.compile("(\\S+):(\\S+)", Pattern.CASE_INSENSITIVE);
-    private static final String[] REQUIRED_KEYS = new String[] {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"};
-
     /**
      * Returns a count of how many passports have the required keys
      */
     public int partA(String[] input)
     {
         int validPassports = 0;
-        ArrayList<HashMap<String, String>> passports = parsePassportInfos(input);
-        Iterator<HashMap<String, String>> passportIterator = passports.iterator();
+        ArrayList<PassportInfo> passports = parsePassportInfos(input);
+        Iterator<PassportInfo> passportIterator = passports.iterator();
+        PassportValidator passportValidator = new PassportValidator();
 
         while (passportIterator.hasNext())
         {
-            if (hasRequiredKeys(passportIterator.next())) {
+            if (passportValidator.validate(passportIterator.next())) {
                 validPassports++;
             }
         }
@@ -36,9 +31,9 @@ public class Day04
     /**
      * Parses the input into an ArrayList of passport info
      */
-    private ArrayList<HashMap<String, String>> parsePassportInfos(String[] input)
+    private ArrayList<PassportInfo> parsePassportInfos(String[] input)
     {
-        ArrayList<HashMap<String, String>> passports = new ArrayList<HashMap<String, String>>();
+        ArrayList<PassportInfo> passports = new ArrayList<PassportInfo>();
         int tailIndex = 0;
 
         // Loop through the input, allowing the head index to go one place past the end of the array
@@ -51,7 +46,7 @@ public class Day04
             if (headIndex == input.length || input[headIndex] == null || input[headIndex].isEmpty()) {
                 if (headIndex != tailIndex) {
                     String[] subset = Arrays.copyOfRange(input, tailIndex, headIndex);
-                    HashMap<String, String> passportInfo = constructPassportInfo(subset);
+                    PassportInfo passportInfo = new PassportInfo(subset);
                     passports.add(passportInfo);
                 }
 
@@ -63,40 +58,6 @@ public class Day04
         }
 
         return passports;
-    }
-
-    /**
-     * Constructs a HashMap of passport info from a subset of the original input
-     */
-    private HashMap<String, String> constructPassportInfo(String[] subset)
-    {
-        HashMap<String, String> passportInfo = new HashMap<String, String>();
-        Matcher matcher;
-        for (String str : subset)
-        {
-            matcher = INPUT_PARSE_PATTERN.matcher(str);
-            while (matcher.find()) {
-                // Group 1 is the key, Group 2 is the value
-                passportInfo.put(matcher.group(1), matcher.group(2));
-            }
-        }
-
-        return passportInfo;
-    }
-
-    /**
-     * Validates whether the passport info contains the required keys
-     */
-    private boolean hasRequiredKeys(HashMap<String, String> passportInfo)
-    {
-        for (String key : REQUIRED_KEYS)
-        {
-            if (passportInfo.containsKey(key) == false) {
-                return false; // Missing a required key
-            }
-        }
-
-        return true;
     }
 
     /**
