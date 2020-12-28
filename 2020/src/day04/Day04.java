@@ -13,10 +13,19 @@ public class Day04
      */
     public int partA(String[] input)
     {
+        PassportValidator passportValidator = new PassportValidator();
+        return parseAndValidate(input, passportValidator);
+    }
+
+    /**
+     * Parses the input and uses the provided validator to validate each passport record
+     * Returns a count of how many passports are valid
+     */
+    public int parseAndValidate(String[] input, PassportValidator passportValidator)
+    {
         int validPassports = 0;
         ArrayList<PassportInfo> passports = parsePassportInfos(input);
         Iterator<PassportInfo> passportIterator = passports.iterator();
-        PassportValidator passportValidator = new PassportValidator();
 
         while (passportIterator.hasNext())
         {
