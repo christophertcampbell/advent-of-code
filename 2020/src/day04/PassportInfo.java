@@ -3,6 +3,7 @@ package day04;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import utilities.StringTools;
 
 public class PassportInfo
 {
@@ -36,6 +37,16 @@ public class PassportInfo
         return containsKey(key) ? info.get(key) : "";
     }
 
+    // Getters
+    public int getBirthYear()      { return StringTools.parseToInt(get("byr")); }
+    public int getIssueYear()      { return StringTools.parseToInt(get("iyr")); }
+    public int getExpirationYear() { return StringTools.parseToInt(get("eyr")); }
+    public String getHeight()      { return get("hgt"); }
+    public String getHairColor()   { return get("hcl"); }
+    public String getEyeColor()    { return get("ecl"); }
+    public String getPassportID()  { return get("pid"); }
+    public String getCountryID()   { return get("cid"); }
+
     /**
      * Constructs a HashMap of passport info
      */
@@ -53,5 +64,5 @@ public class PassportInfo
         }
 
         return passportInfo;
-    } 
+    }
 }
