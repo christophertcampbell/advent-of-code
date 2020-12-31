@@ -1,14 +1,10 @@
 package day05;
 
-import java.util.Arrays;
 import utilities.FileIO;
 import utilities.Test;
 
 public class Day05
 {
-    private static final BSPSearch rows = new BSPSearch(0, 127);
-    private static final BSPSearch columns = new BSPSearch(0, 7);
-
     /**
      * Returns the highest seat number
      */
@@ -18,19 +14,32 @@ public class Day05
 
         for (String line : input)
         {
-            if (line.length() != 10) {
-                continue;
-            }
-
-            int rowNumber = rows.find(line.substring(0, 7));
-            int colNumber = columns.find(line.substring(7, 10));
-            int seatNumber = (rowNumber * 8) + colNumber;
+            int seatNumber = calculateSeatNumber(line);
             if (seatNumber > maxSeatNumber) {
                 maxSeatNumber = seatNumber;
             }
         }
 
         return maxSeatNumber;
+    }
+
+    /**
+     * Calculates a seat number from the provided binary pattern
+     * 
+     * @param binaryPattern A binary pattern where <code>B/R</code> characters are high and any other characters are low
+     * @return The calculated seat number
+     */
+    public static int calculateSeatNumber(String binaryPattern)
+    {
+        int num = 0;
+        for (int i = 0; i < binaryPattern.length(); i++)
+        {
+            if (binaryPattern.charAt(i) == 'B' || binaryPattern.charAt(i) == 'R') {
+                // Bit is set high, calculate its power of 2 value and add to the number
+                num += Math.pow(2, binaryPattern.length() - i - 1);
+            }
+        }
+        return num;
     }
 
     /**
@@ -41,19 +50,19 @@ public class Day05
         String[] testInput = FileIO.readAsStrings("2020/src/day05/Day05TestInput.txt");
         String[] realInput = FileIO.readAsStrings("2020/src/day05/Day05Input.txt");
 
-        Test.assertEqual("Day 5 - Part A - Column Parsing", columns.find("RLR"), 5);
-        Test.assertEqual("Day 5 - Part A - Column Parsing", columns.find("RRR"), 7);
-        Test.assertEqual("Day 5 - Part A - Column Parsing", columns.find("RLL"), 4);
+        Test.assertEqual("Day 5 - Part A - Column Parsing", calculateSeatNumber("RLR"), 5);
+        Test.assertEqual("Day 5 - Part A - Column Parsing", calculateSeatNumber("RRR"), 7);
+        Test.assertEqual("Day 5 - Part A - Column Parsing", calculateSeatNumber("RLL"), 4);
 
-        Test.assertEqual("Day 5 - Part A - Row Parsing", rows.find("FBFBBFF"), 44);
-        Test.assertEqual("Day 5 - Part A - Row Parsing", rows.find("BFFFBBF"), 70);
-        Test.assertEqual("Day 5 - Part A - Row Parsing", rows.find("FFFBBBF"), 14);
-        Test.assertEqual("Day 5 - Part A - Row Parsing", rows.find("BBFFBBF"), 102);
+        Test.assertEqual("Day 5 - Part A - Row Parsing", calculateSeatNumber("FBFBBFF"), 44);
+        Test.assertEqual("Day 5 - Part A - Row Parsing", calculateSeatNumber("BFFFBBF"), 70);
+        Test.assertEqual("Day 5 - Part A - Row Parsing", calculateSeatNumber("FFFBBBF"), 14);
+        Test.assertEqual("Day 5 - Part A - Row Parsing", calculateSeatNumber("BBFFBBF"), 102);
 
-        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", partA(Arrays.copyOfRange(testInput, 0, 1)), 357);
-        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", partA(Arrays.copyOfRange(testInput, 1, 2)), 567);
-        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", partA(Arrays.copyOfRange(testInput, 2, 3)), 119);
-        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", partA(Arrays.copyOfRange(testInput, 3, 4)), 820);
+        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", calculateSeatNumber("FBFBBFFRLR"), 357);
+        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", calculateSeatNumber("BFFFBBFRRR"), 567);
+        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", calculateSeatNumber("FFFBBBFRRR"), 119);
+        Test.assertEqual("Day 5 - Part A - Seat ID Parsing", calculateSeatNumber("BBFFBBFRLL"), 820);
 
         Test.assertEqual("Day 5 - Part A - Test input", partA(testInput), 820);
         Test.assertEqual("Day 5 - Part A - Challenge input", partA(realInput), 842);
