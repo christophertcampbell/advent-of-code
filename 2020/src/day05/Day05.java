@@ -15,12 +15,39 @@ public class Day05
         for (String line : input)
         {
             int seatNumber = calculateSeatNumber(line);
-            if (seatNumber > maxSeatNumber) {
-                maxSeatNumber = seatNumber;
-            }
+            if (seatNumber > maxSeatNumber) maxSeatNumber = seatNumber;
         }
 
         return maxSeatNumber;
+    }
+
+    /**
+     * Returns the missing seat number
+     */
+    public static int partB(String[] input)
+    {
+        int maxSeatNumber = Integer.MIN_VALUE;
+        int minSeatNumber = Integer.MAX_VALUE;
+        int sumOfSeatNumbers = 0;
+
+        // Find min and max seat numbers, and the total sum of all seat numbers
+        for (String line : input)
+        {
+            int seatNumber = calculateSeatNumber(line);
+            if (seatNumber > maxSeatNumber) maxSeatNumber = seatNumber;
+            if (seatNumber < minSeatNumber) minSeatNumber = seatNumber;
+            sumOfSeatNumbers += seatNumber;
+        }
+
+        // Determine the total monotonic sum between the highest and lowest seat numbers
+        int monotonicSum = 0;
+        for (int i = minSeatNumber; i <= maxSeatNumber; i++) {
+            monotonicSum += i;
+        }
+
+        // The missing seat number will be the difference between
+        // the monotonic sum and the sum of the seat numbers that were found
+        return monotonicSum - sumOfSeatNumbers;
     }
 
     /**
@@ -66,6 +93,8 @@ public class Day05
 
         Test.assertEqual("Day 5 - Part A - Test input", partA(testInput), 820);
         Test.assertEqual("Day 5 - Part A - Challenge input", partA(realInput), 842);
+        Test.assertEqual("Day 5 - Part B - Challenge input", partB(realInput), 617);
+
     }
 
     public static void main(String[] args)
