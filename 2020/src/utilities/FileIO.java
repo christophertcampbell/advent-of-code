@@ -70,4 +70,32 @@ public class FileIO
 
         return input;
     }
+
+    /**
+     * Returns the contents of a file as an array of arrays of strings,
+     * grouping together continguous lines in the input with
+     * blank lines being the delimiter between groups
+     */
+    public static String[][] readAsGroupsOfStrings(String filepath)
+    {
+        String[] input = readAsStrings(filepath);
+
+        ArrayList<String[]> groupedInput = new ArrayList<String[]>();
+        ArrayList<String> currentGroup = new ArrayList<String>();
+
+        for (int i = 0; i <= input.length; i++)
+        {
+            if (i == input.length || input[i] == null || input[i].isEmpty()) {
+                // Blank line or end of input, add the current group
+                // to the collection and start a new current group
+                groupedInput.add(currentGroup.toArray(new String[0]));
+                currentGroup.clear();
+            } else {
+                // Add the current line to the current group and continue on
+                currentGroup.add(input[i]);
+            }
+        }
+
+        return groupedInput.toArray(new String[0][]);
+    }
 }
