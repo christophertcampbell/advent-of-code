@@ -51,7 +51,7 @@ public class Day06
         return uniqueChars.size();
     }
 
-	/**
+    /**
      * Returns a count of unique chars which all strings share in common
      */
     private static int countCommonChars(String[] input)
