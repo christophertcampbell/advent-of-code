@@ -54,4 +54,12 @@ public class BagCollection
     {
         return bags.values().toArray(new Bag[0]); 
     }
+
+    /**
+     * Returns the bag of the specified name, or null if not found
+     */
+    public Bag getBag(String bagName)
+    {
+        return bags.containsKey(bagName) ? bags.get(bagName) : null;
+    }
 }

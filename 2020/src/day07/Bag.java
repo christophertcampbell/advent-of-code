@@ -48,4 +48,22 @@ public class Bag
 
         return false;
     }
+
+    /**
+     * Returns a count of all inner bags, including any bags that
+     * the inner bags themselves contain
+     */
+    public int getInnerBagCount()
+    {
+        int count = 0;
+        for (HashMap.Entry<Bag, Integer> innerBagEntry : innerBags.entrySet())
+        {
+            Bag innerBag = innerBagEntry.getKey();
+            int innerBagCount = innerBagEntry.getValue();
+
+            count += innerBagCount;
+            count += innerBag.getInnerBagCount() * innerBagCount;
+        }
+        return count;
+    }
 }
