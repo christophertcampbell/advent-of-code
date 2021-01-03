@@ -15,6 +15,15 @@ public class Day08
     }
 
     /**
+     * Returns the value of the accumulator once the op code
+     * has run, including fixing the infinite loop
+     */
+    public static int partB(String[] input)
+    {
+        return OpCodeAnalyzer.runWithInifiniteLoopFix(input);
+    }
+
+    /**
      * Runs the day's solutions
      */
     public static void run()
@@ -24,6 +33,8 @@ public class Day08
 
         Test.assertEqual("Day 8 - Part A - Test input", partA(testInput), 5);
         Test.assertEqual("Day 8 - Part A - Challenge input", partA(realInput), 1614);
+        Test.assertEqual("Day 8 - Part B - Test input", partB(testInput), 8);
+        Test.assertEqual("Day 8 - Part B - Challenge input", partB(realInput), 1260);
     }
 
     public static void main(String[] args)
