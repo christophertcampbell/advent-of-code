@@ -72,6 +72,28 @@ public class FileIO
     }
 
     /**
+     * Returns the contents of a file as an array of longs
+     */
+    public static long[] readAsLongs(String filepath)
+    {
+        String[] strings = readAsStrings(filepath);
+        long[] input = new long[strings.length];
+        for (int i = 0; i < strings.length; i++)
+        {
+            try
+            {
+                input[i] = Long.parseLong(strings[i]);
+            }
+            catch (Exception e)
+            {
+                System.out.println("Exception: " + e.getMessage());
+            }
+        }
+
+        return input;
+    }
+
+    /**
      * Returns the contents of a file as an array of arrays of strings,
      * grouping together continguous lines in the input with
      * blank lines being the delimiter between groups
