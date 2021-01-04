@@ -7,6 +7,7 @@ import day06.Day06;
 import day07.Day07;
 import day08.Day08;
 import day09.Day09;
+import day10.Day10;
 
 public class AllDays
 {
@@ -24,5 +25,6 @@ public class AllDays
         Day07.run();
         Day08.run();
         Day09.run();
+        Day10.run();
     }
 }
