@@ -15,6 +15,16 @@ public class Day09
     }
 
     /**
+     * Returns the encryption weakness (smallest + largest number) of the
+     * subarray whose sum equals the invalid number
+     */
+    public static long partB(long[] input, int preambleLength)
+    {
+        long invalidNum = XMASCodeAnalyzer.findFirstInvalidNumber(input, preambleLength);
+        return XMASCodeAnalyzer.getEncryptionWeakness(input, invalidNum);
+    }
+
+    /**
      * Runs the day's solutions
      */
     public static void run()
@@ -24,6 +34,8 @@ public class Day09
 
         Test.assertEqual("Day 9 - Part A - Test input", partA(testInput, 5), 127);
         Test.assertEqual("Day 9 - Part A - Challenge input", partA(realInput, 25), 133015568);
+        Test.assertEqual("Day 9 - Part B - Test input", partB(testInput, 5), 62);
+        Test.assertEqual("Day 9 - Part B - Challenge input", partB(realInput, 25), 16107959);
     }
 
     public static void main(String[] args)
