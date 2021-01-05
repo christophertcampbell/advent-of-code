@@ -9,31 +9,37 @@ public class Day10
     /**
      * Returns the product of the counts of 1-joltage and 3-joltage differences
      * found in the sorted input, including the initial port joltage (0) and
-     * final device joltage
+     * the device's built-in adapter joltage (3 higher than highest input)
      */
     public static int partA(int[] input)
     {
-        Arrays.sort(input);
+        input = sortAndAddBounds(input);
         int countDiffOf1 = 0;
         int countDiffOf3 = 0;
-        int diff;
-
-        // Check difference between port joltage (0) and first joltage in input
-        diff = input[0] - 0;
-        if (diff == 1) countDiffOf1++;
-        if (diff == 3) countDiffOf3++;
 
         // Check difference between each contiguous pair of numbers in the input
         for (int i = 1; i < input.length; i++)
         {
-            diff  = input[i] - input[i-1];
+            int diff  = input[i] - input[i-1];
             if (diff == 1) countDiffOf1++;
             if (diff == 3) countDiffOf3++;
         }
 
-        countDiffOf3++; // Device joltage is 3 higher than highest number in input
-
         return countDiffOf1 * countDiffOf3;
+    }
+
+    /**
+     * Sorts the input (adapter) array and adds the charging outlet and device's built-in
+     * adapter values to the beginning and end (respectively) of the input array
+     */
+    private static int[] sortAndAddBounds(int[] input)
+    {
+        Arrays.sort(input);
+        int[] modifiedInput = new int[input.length + 2];
+        modifiedInput[0] = 0; // Charging outlet
+        modifiedInput[modifiedInput.length - 1] = input[input.length - 1] + 3; // Device built-in adapter
+        System.arraycopy(input, 0, modifiedInput, 1, input.length); // Original input
+        return modifiedInput;
     }
 
     /**
