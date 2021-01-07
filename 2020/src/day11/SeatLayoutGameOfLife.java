@@ -5,14 +5,19 @@ package day11;
  * there are three states (empty seat (L), occupied seat (#),
  * and unoccupiable floor space (.)), and the rules are
  * different than a standard Game of Life program
+ * 
+ * In "Visible Seat Mode" takes into account all occupied
+ * seats visible from each point. Otherwise only takes into
+ * account occupied seats immediately adjacent to each point.
  */
 public class SeatLayoutGameOfLife
 {
     private char[][] data;
     private int width;
     private int height;
+    private boolean isVisibleSeatMode;
 
-    public SeatLayoutGameOfLife(String[] input)
+    public SeatLayoutGameOfLife(String[] input, boolean isVisibleSeatMode)
     {
         /**
          * Convert input to an array of chars
@@ -22,6 +27,7 @@ public class SeatLayoutGameOfLife
         width = input[0].length();
         height = input.length;
         data = new char[height][width];
+        this.isVisibleSeatMode = isVisibleSeatMode;
         for (int i = 0; i < input.length; i++)
         {
             data[i] = input[i].toCharArray();
@@ -36,6 +42,10 @@ public class SeatLayoutGameOfLife
     {
         boolean madeChange = true;
         char[][] newData;
+
+        // The max number of surrounding occipied seats before
+        // an occupied seat becomes unoccupied
+        int maxAdjacentOccupiedSeatCount = isVisibleSeatMode ? 4 : 3;
 
         // Run until we reach a state where no more changes occur
         while (madeChange)
@@ -68,7 +78,7 @@ public class SeatLayoutGameOfLife
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (isOccupiedSeat(x, y) && getSurroundingOccupiedSeatCount(x, y) >= 4) {
+                    if (isOccupiedSeat(x, y) && getSurroundingOccupiedSeatCount(x, y) > maxAdjacentOccupiedSeatCount) {
                         newData[y][x] = 'L'; // Make the seat unoccupied
                         madeChange = true;
                     }
@@ -79,7 +89,7 @@ public class SeatLayoutGameOfLife
             data = newData;
         }
         
-        return getOccupiedSeatCount();
+        return getTotalOccupiedSeatCount();
     }
 
     private boolean isUnoccupiedSeat(int x, int y)
@@ -97,7 +107,21 @@ public class SeatLayoutGameOfLife
         return x >= 0 && y >= 0 && x < width && y < height;
     }
 
+    /**
+     * Returns the count of surrounding occupied seats
+     */
     private int getSurroundingOccupiedSeatCount(int x, int y)
+    {
+        return isVisibleSeatMode
+            ? getSurroundingOccupiedSeatCountVisible(x, y)
+            : getSurroundingOccupiedSeatCountAdjacent(x, y);
+    }
+
+    /**
+     * Returns the count of occupied seats that are
+     * immediately adjacent to the specified point
+     */
+    private int getSurroundingOccupiedSeatCountAdjacent(int x, int y)
     {
         int count = 0;
         for (int y2 = y - 1; y2 <= y + 1; y2++)
@@ -112,7 +136,50 @@ public class SeatLayoutGameOfLife
         return count;
     }
 
-    private int getOccupiedSeatCount()
+    /**
+     * Returns the count of occupied seats that are
+     * visible from the specified point
+     */
+    private int getSurroundingOccupiedSeatCountVisible(int x, int y)
+    {
+        int count = 0;
+        // Search for visible occupied seats in all directions
+        for (int yDiff = -1; yDiff <= 1; yDiff++)
+        {
+            for (int xDiff = -1; xDiff <= 1; xDiff++)
+            {
+                if (xDiff == 0 && yDiff == 0) {
+                    continue; // Skip over the original point
+                }
+
+                // First point in search direction
+                int workingX = x + xDiff;
+                int workingY = y + yDiff;
+
+                while (isInBounds(workingX, workingY))
+                {
+                    if (isOccupiedSeat(workingX, workingY)) {
+                        // Occupied seat, count it and move on to the next search direction
+                        count++;
+                        break;
+                    } else if (isUnoccupiedSeat(workingX, workingY)) {
+                        // Unoccupied seat, don't count it but move on to the next search direction
+                        break;
+                    }
+                    
+                    // Move to next point in current search direction
+                    workingX += xDiff;
+                    workingY += yDiff;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Returns the total count of all occupied seats
+     */
+    private int getTotalOccupiedSeatCount()
     {
         int count = 0;
         for (int y = 0; y < height; y++)
