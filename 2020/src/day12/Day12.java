@@ -11,7 +11,8 @@ public class Day12
      */
     public static int partA(String[] input)
     {
-        NavComputer navComputer = new NavComputer();
+        NavModule navModule = new NavModulePartA();
+        NavComputer navComputer = new NavComputer(navModule);
         navComputer.navigate(input);
         return navComputer.getManhattanDistanceFromStart();
     }

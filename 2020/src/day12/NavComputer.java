@@ -4,14 +4,14 @@ import java.awt.Point;
 
 public class NavComputer
 {
-    private Point currentLocation;
-    private int currentHeadingIndex;
-    private static final char[] headings = {'E', 'S', 'W', 'N'};
+    /**
+     * NavModule handles the actual navigation logic
+     */
+    private NavModule navModule;
 
-    public NavComputer()
+    public NavComputer(NavModule navModule)
     {
-        currentLocation = new Point(0, 0);
-        currentHeadingIndex = 0;
+        this.navModule = navModule;
     }
 
     /**
@@ -19,78 +19,21 @@ public class NavComputer
      */
     public void navigate(String[] input)
     {
-        for (int i = 0; i < input.length; i++)
-        {
-            NavInstruction instruction = parseInstruction(input[i]);
-            switch(instruction.getDirection())
-            {
-                case 'N':
-                case 'S':
-                case 'E':
-                case 'W':
-                    move(instruction.getDirection(), instruction.getAmount());
-                    break;
-                case 'L':
-                case 'R':
-                    turn(instruction.getDirection(), instruction.getAmount());
-                    break;
-                case 'F':
-                    move(headings[currentHeadingIndex], instruction.getAmount());
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Moves to a new location
-     */
-    private void move(char direction, int distance)
-    {
-        switch(direction)
-        {
-            case 'N':
-                currentLocation.y += distance;
-                break;
-            case 'S':
-                currentLocation.y -= distance;
-                break;
-            case 'E':
-                currentLocation.x += distance;
-                break;
-            case 'W':
-                currentLocation.x -= distance;
-                break;
-        }
-    }
-
-    /**
-     * Turns to a new heading
-     */
-    private void turn(char direction, int amount)
-    {
-        switch(direction)
-        {
-            case 'L':
-                currentHeadingIndex -= amount / 90;
-                if (currentHeadingIndex < 0) {
-                    currentHeadingIndex += headings.length;
-                }
-                break;
-            case 'R':
-                currentHeadingIndex += amount / 90;
-                if (currentHeadingIndex >= headings.length) {
-                    currentHeadingIndex -= headings.length;
-                }
-                break;
-        }
+        NavInstruction[] navInstructions = parseInstructions(input);
+        navModule.navigate(navInstructions);
     }
 
     /**
      * Parses the string input into a usable NavInstruction
      */
-    private NavInstruction parseInstruction(String input)
+    private NavInstruction[] parseInstructions(String[] input)
     {
-        return new NavInstruction(input.charAt(0), Integer.parseInt(input.substring(1)));
+        NavInstruction[] navInstructions = new NavInstruction[input.length];
+        for (int i = 0; i < input.length; i++)
+        {
+            navInstructions[i] = new NavInstruction(input[i].charAt(0), Integer.parseInt(input[i].substring(1)));
+        }
+        return navInstructions;
     }
 
     /**
@@ -99,6 +42,7 @@ public class NavComputer
      */
     public int getManhattanDistanceFromStart()
     {
+        Point currentLocation = navModule.getCurrentLocation();
         return Math.abs(currentLocation.x) + Math.abs(currentLocation.y);
     }
 }
