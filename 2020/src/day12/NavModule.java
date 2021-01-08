@@ -3,8 +3,8 @@ package day12;
 import java.awt.Point;
 
 /**
- * A navigation module handles the logic
- * for navigating based on a set of instructions
+ * Navigation module for performaing navigation
+ * based on a set of instructions
  */
 public interface NavModule
 {

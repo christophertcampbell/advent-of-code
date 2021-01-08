@@ -3,8 +3,13 @@ package day12;
 import java.awt.Point;
 
 /**
- * A navigation module handles the logic
- * for navigating based on a set of instructions
+ * Navigation module for performaing navigation
+ * based on a set of instructions
+ * 
+ * Uses a simple navigation method where the current location
+ * is moved orthagonally by a specified distance, or
+ * the heading is rotated and then the location moved forward
+ * by a specified distance
  */
 public class NavModulePartA implements NavModule
 {
@@ -18,10 +23,10 @@ public class NavModulePartA implements NavModule
         currentHeadingIndex = 0;
     }
 
-    @Override
     /**
      * Navigates to a new location based upon an array of instructions
      */
+    @Override
     public void navigate(NavInstruction[] input)
     {
         for (int i = 0; i < input.length; i++)
