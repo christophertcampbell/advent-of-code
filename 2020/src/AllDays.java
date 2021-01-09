@@ -10,6 +10,7 @@ import day09.Day09;
 import day10.Day10;
 import day11.Day11;
 import day12.Day12;
+import day13.Day13;
 
 public class AllDays
 {
@@ -30,5 +31,6 @@ public class AllDays
         Day10.run();
         Day11.run();
         Day12.run();
+        Day13.run();
     }
 }
