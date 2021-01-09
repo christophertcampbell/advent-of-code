@@ -4,32 +4,32 @@ import java.util.ArrayList;
 
 public class BusSchedule
 {
-    private ArrayList<Integer> busIDs;
+    private ArrayList<Bus> buses;
 
     public BusSchedule(String busIDsCommaSeparated)
     {
-        busIDs = parseBusIDs(busIDsCommaSeparated);
+        buses = parseBuses(busIDsCommaSeparated);
     }
 
     /**
      * Parses the numeric bus IDs from a comma-separated string
      */
-    private ArrayList<Integer> parseBusIDs(String busIDsCommaSeparated)
+    private ArrayList<Bus> parseBuses(String busIDsCommaSeparated)
     {
         String[] busIDStrings = busIDsCommaSeparated.split(",", 0);
-        ArrayList<Integer> busIDList = new ArrayList<Integer>();
-        for (String busIDString : busIDStrings)
+        ArrayList<Bus> busList = new ArrayList<Bus>();
+        for (int i = 0; i < busIDStrings.length; i++)
         {
             try
             {
-                busIDList.add(Integer.parseInt(busIDString));
+                busList.add(new Bus(Integer.parseInt(busIDStrings[i]), i));
             }
             catch (Exception e)
             {
                 // Do nothing
             }
         }
-        return busIDList;
+        return busList;
     }
 
     /**
@@ -46,15 +46,15 @@ public class BusSchedule
 
         // Loop through the bus IDs and find the bus
         // arriving soonest after the target time
-        for (Integer busID : busIDs)
+        for (Bus bus : buses)
         {
-            int timeDifference = busID - (targetTime % busID);
+            int timeDifference = bus.getID() - (targetTime % bus.getID());
             if (timeDifference < soonestTimeDifference) {
                 soonestTimeDifference = timeDifference;
-                soonestBusID = busID;
+                soonestBusID = bus.getID();
             }
         }
-        
+
         return soonestBusID * soonestTimeDifference;
     }
 }
