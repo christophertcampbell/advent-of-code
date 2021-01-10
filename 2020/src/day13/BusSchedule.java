@@ -50,40 +50,35 @@ public class BusSchedule
      * Returns the earliest time at which all buses are synchronized
      * (each bus arrives at a time equal to the time + the bus index)
      * 
-     * Works for all test inputs, but takes too long to solve the
-     * actual challenge input
+     * I got a hint for this one from a friend's solution. My initial
+     * solution was too brute force and would solve the tests but
+     * not the actual challenge input (took too long).
      */
     public long getEarliestSynchronizedTime()
     {
-        // Find the bus with the highest ID to use as our control
-        // in order to minimize the number of times we need to loop
-        Bus controlBus = null;
+        // Begin with the first bus id as the first arrival time and period
+        long baseTime = buses.get(0).getID();
+        long period = baseTime;
+
         for (Bus bus : buses)
         {
-            if (controlBus == null || bus.getID() > controlBus.getID()) {
-                controlBus = bus;
-            }
-        }
+            // Skip first bus
+            if (bus.getIndex() == 0) continue;
 
-        long baseTime = controlBus.getID() - controlBus.getIndex();
-        boolean busesAreSynchronized = false;
-
-        while (busesAreSynchronized == false)
-        {
-            // Increment the base time to the next multiple of the control bus id
-            baseTime += controlBus.getID();
-            busesAreSynchronized = true;
-
-            // Loop through all buses and check if they are synchronized
-            // at this base time
-            for (int i = 0; i < buses.size(); i++)
+            // Find when the next bus is synchronized
+            boolean isSynchronized = false;
+            while (isSynchronized == false)
             {
-                Bus currentBus = buses.get(i);
-                if ((baseTime + currentBus.getIndex()) % currentBus.getID() != 0) {
-                    busesAreSynchronized = false;
-                    break;
+                baseTime += period;
+                if ((baseTime + bus.getIndex()) % bus.getID() == 0) {
+                    isSynchronized = true;
                 }
             }
+
+            // Now that the current bus is synchronized, multiply
+            // the period by the current bus id because any further
+            // synchronizations will happen on this period
+            period *= bus.getID();
         }
 
         return baseTime;
