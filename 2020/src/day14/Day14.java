@@ -17,47 +17,61 @@ public class Day14
      */
     public static long partA(String[] input)
     {
-        long setMask = 0;
-        long unsetMask = 0;
-        HashMap<Integer, Long> values = new HashMap<>();
+        BitMasks masks = new BitMasks(0,0);
+        HashMap<Integer, Long> memory = new HashMap<>();
 
         for (String line : input)
         {
             if (line.substring(0,4).equals("mask")) {
                 // Found a new bitmask
-                setMask = 0;
-                unsetMask = 0;
-                for (int i = 0; i < line.length(); i++)
-                {
-                    // Read bits from the right (least significant bit at right)
-                    // and add to the appropriate "set" or "unset" mask
-                    int bitIndex = line.length() - 1 - i;
-                    if (line.charAt(i) == '1') {
-                        setMask += Math.pow(2, bitIndex);
-                    } else if (line.charAt(i) == '0') {
-                        unsetMask += Math.pow(2, bitIndex);
-                    }
-                }
+                masks = parseBitMasks(line);
             } else {
-                // Found a new entry
                 Matcher matcher = PATTERN_PARSE_INSTRUCTION.matcher(line);
                 if (matcher.find()) {
-                    int memLocation = Integer.parseInt(matcher.group(1));
-                    long newValue = Integer.parseInt(matcher.group(2));
-                    // Apply the "set" and "unset" masks to the new value
-                    newValue = (newValue | setMask) & ~unsetMask;
-                    values.put(memLocation, newValue);
+                    // Found a new memory allocation instruction
+                    int address = Integer.parseInt(matcher.group(1));
+                    long value = Integer.parseInt(matcher.group(2));
+                    value = value | masks.setMask; // Apply the "set" bitmask
+                    value = value & ~masks.unsetMask; // Apply the "unset" bitmask
+                    memory.put(address, value);
                 };
             }
         }
 
-        // Sum the values in all memory locations
+        return sumValues(memory);
+    }
+
+    /**
+     * Parses a co-mingled bitmask into usable bitmasks
+     */
+    private static BitMasks parseBitMasks(String str)
+    {
+        long setMask = 0;
+        long unsetMask = 0;
+        for (int i = 0; i < str.length(); i++)
+        {
+            // Read bits from the right (least significant bit at right)
+            // and add to the appropriate "set" or "unset" mask
+            int bitIndex = str.length() - 1 - i;
+            if (str.charAt(i) == '1') {
+                setMask += Math.pow(2, bitIndex);
+            } else if (str.charAt(i) == '0') {
+                unsetMask += Math.pow(2, bitIndex);
+            }
+        }
+        return new BitMasks(setMask, unsetMask);
+    }
+
+    /**
+     * Returns the sum of all values in a HashMap
+     */
+    private static long sumValues(HashMap<Integer, Long> map)
+    {
         long sum = 0;
-        for (Map.Entry<Integer, Long> entry : values.entrySet())
+        for (Map.Entry<Integer, Long> entry : map.entrySet())
         {
             sum += entry.getValue();
         }
-        
         return sum;
     }
 
