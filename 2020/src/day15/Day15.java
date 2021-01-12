@@ -6,12 +6,22 @@ import utilities.Test;
 
 public class Day15
 {
+    public static int partA(int[] nums)
+    {
+        return runPattern(nums, 2020);
+    }
+
+    public static int partB(int[] nums)
+    {
+        return runPattern(nums, 30000000);
+    }
+
     /**
      * Navigates a pattern of numbers, deciding the next number
      * based upon whether the previous number has occurred
      * previously or not. Returns the final number.
      */
-    public static int partA(int[] nums)
+    private static int runPattern(int[] nums, int targetIndex)
     {
         HashMap<Integer, Integer> history = new HashMap<>();
         int nextNum = 0;
@@ -25,7 +35,7 @@ public class Day15
         }
 
         // Loop until we have evaluated the pattern up to the target index
-        while (nextIndex < 2020)
+        while (nextIndex < targetIndex)
         {
             if (history.containsKey(nextNum)) {
                 // Number has occurred previously
@@ -59,6 +69,15 @@ public class Day15
         Test.assertEqual("Day 15 - Part A - Test input #6", partA(testInput[5]), 438);
         Test.assertEqual("Day 15 - Part A - Test input #7", partA(testInput[6]), 1836);
         Test.assertEqual("Day 15 - Part A - Challenge input", partA(realInput[0]), 662);
+
+        Test.assertEqual("Day 15 - Part B - Test input #1", partB(testInput[0]), 175594);
+        Test.assertEqual("Day 15 - Part B - Test input #2", partB(testInput[1]), 2578);
+        Test.assertEqual("Day 15 - Part B - Test input #3", partB(testInput[2]), 3544142);
+        Test.assertEqual("Day 15 - Part B - Test input #4", partB(testInput[3]), 261214);
+        Test.assertEqual("Day 15 - Part B - Test input #5", partB(testInput[4]), 6895259);
+        Test.assertEqual("Day 15 - Part B - Test input #6", partB(testInput[5]), 18);
+        Test.assertEqual("Day 15 - Part B - Test input #7", partB(testInput[6]), 362);
+        Test.assertEqual("Day 15 - Part B - Challenge input", partB(realInput[0]), 37312);
     }
 
     public static void main(String[] args)
