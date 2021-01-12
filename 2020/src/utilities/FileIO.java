@@ -120,4 +120,25 @@ public class FileIO
 
         return groupedInput.toArray(new String[0][]);
     }
+
+    /**
+     * Returns the contents of a file as an array of arrays of integers.
+     * Expects each line of input to be a comma-separated list of integers.
+     */
+    public static int[][] readAsCommaSeparatedInts(String filepath)
+    {
+        String[] input = readAsStrings(filepath);
+        int[][] parsedInput = new int[input.length][];
+        for (int i = 0; i < input.length; i++)
+        {
+            String[] strArray = input[i].split(",");
+            int[] numArray = new int[strArray.length];
+            for (int x = 0; x < strArray.length; x++)
+            {
+                numArray[x] = Integer.parseInt(strArray[x]);
+            }
+            parsedInput[i] = numArray;
+        }
+        return parsedInput;
+    }
 }
