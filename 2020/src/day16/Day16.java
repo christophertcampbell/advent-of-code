@@ -61,7 +61,7 @@ public class Day16
 
         // Perform analysis
         HashMap<Integer, Boolean> history = new HashMap<>();
-        int sum = 0;
+        int errorRate = 0;
         for (Integer[] ticket : nearbyTickets)
         {
             for (Integer num : ticket)
@@ -69,7 +69,7 @@ public class Day16
                 if (history.containsKey(num)) {
                     // We have seen this number before, use our previous results
                     if (history.get(num) == false) {
-                        sum += num;
+                        errorRate += num;
                     }
                     continue;
                 }
@@ -87,12 +87,12 @@ public class Day16
                 }
                 history.put(num, isValid);
                 if (isValid == false) {
-                    sum += num;
+                    errorRate += num;
                 }
             }
         }
 
-        return sum;
+        return errorRate;
     }
 
     /**
