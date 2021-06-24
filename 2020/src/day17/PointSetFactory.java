@@ -3,14 +3,14 @@ package day17;
 public class PointSetFactory
 {
   /**
-   * Builds a map of 3d points from an array of strings
+   * Builds a map of 4d points from an array of strings
    * whose characters represent points on an x/y grid
    * with '#' indicating an active point and '.' indicating
    * an inactive point
    */
-  public static PointSet3d buildSetOfActivePoints3d(String[] input)
+  public static PointSet4d buildSetOfActivePoints(String[] input)
   {
-    PointSet3d pointsMap = new PointSet3d();
+    PointSet4d pointsMap = new PointSet4d();
     int x = 0;
     int y = 0;
 
@@ -22,7 +22,7 @@ public class PointSetFactory
     {
       for (char c : line.toCharArray())
       {
-        Point3d point = new Point3d(x, y, 0);
+        Point4d point = new Point4d(x, y, 0, 0);
         boolean isActive = c == '#';
 
         if (isActive) {
