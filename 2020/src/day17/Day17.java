@@ -3,6 +3,7 @@ package day17;
 import java.util.ArrayList;
 import utilities.FileIO;
 import utilities.Test;
+import utilities.Timing;
 
 enum Mode
 {
@@ -96,6 +97,8 @@ public class Day17
 
   public static void main(String[] args)
   {
+    Timing.start();
     run();
+    Timing.end();
   }
 }
