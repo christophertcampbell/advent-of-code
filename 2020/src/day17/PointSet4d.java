@@ -21,6 +21,14 @@ public class PointSet4d
   }
 
   /**
+   * Adds multiple points to the set
+   */
+  public void addAll(ArrayList<Point4d> points)
+  {
+    activePoints.addAll(points);
+  }
+
+  /**
    * Removes a point from the set
    */
   public void remove(Point4d point)

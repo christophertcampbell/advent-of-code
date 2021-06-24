@@ -40,38 +40,40 @@ public class Day17
       // Create a clone of the set
       PointSet4d newActivePoints = activePoints.clone();
 
+      // Construct a set of all active points and their neighbors
+      // to analyze. This makes sure we analyze any neighboring
+      // inactive points along with the active points.
+      PointSet4d pointsToAnalyze = new PointSet4d();
       for (Point4d activePoint : activePoints.getAll())
       {
-        // Build a set of the point and its neighbors to analyze.
-        // This makes sure we analyze any neighboring inactive
-        // points along with the active points.
-        ArrayList<Point4d> pointsToAnalyze;
-        pointsToAnalyze = mode == Mode.ANALYZE3D
+        pointsToAnalyze.add(activePoint);
+        ArrayList<Point4d> adjacentPoints = mode == Mode.ANALYZE3D
           ? activePoints.getAllAdjacent3d(activePoint)
           : activePoints.getAllAdjacent4d(activePoint);
-        pointsToAnalyze.add(activePoint);
+        pointsToAnalyze.addAll(adjacentPoints);
+      }
 
-        for (Point4d pointToAnalyze : pointsToAnalyze)
-        {
-          // Check if the point is active
-          boolean isActive = activePoints.contains(pointToAnalyze);
+      // Analyze all active and adjacent points
+      for (Point4d pointToAnalyze : pointsToAnalyze.getAll())
+      {
+        // Check if the point is active
+        boolean isActive = activePoints.contains(pointToAnalyze);
 
-          // Count active neighbors
-          ArrayList<Point4d> adjacentPoints;
-          adjacentPoints = mode == Mode.ANALYZE3D
-            ? activePoints.getAllAdjacent3d(pointToAnalyze)
-            : activePoints.getAllAdjacent4d(pointToAnalyze);
-          int activeNeighborCount = activePoints.getCountInSet(adjacentPoints);
+        // Count active neighbors
+        ArrayList<Point4d> adjacentPoints = mode == Mode.ANALYZE3D
+          ? activePoints.getAllAdjacent3d(pointToAnalyze)
+          : activePoints.getAllAdjacent4d(pointToAnalyze);
+        int activeNeighborCount = activePoints.getCountInSet(adjacentPoints);
 
-          // Apply the rules and update the point in the new set if necessary
-          if (isActive && activeNeighborCount != 2 && activeNeighborCount != 3) {
-            newActivePoints.remove(pointToAnalyze);
-          } else if (isActive == false && activeNeighborCount == 3) {
-            newActivePoints.add(pointToAnalyze);
-          }
+        // Apply the rules and update the point in the new set if necessary
+        if (isActive && activeNeighborCount != 2 && activeNeighborCount != 3) {
+          newActivePoints.remove(pointToAnalyze);
+        } else if (isActive == false && activeNeighborCount == 3) {
+          newActivePoints.add(pointToAnalyze);
         }
       }
 
+      // Update the set of active points
       activePoints = newActivePoints;
     }
 
