@@ -1,5 +1,6 @@
 package day17;
 
+import java.util.ArrayList;
 import utilities.FileIO;
 import utilities.Test;
 
@@ -12,32 +13,43 @@ public class Day17
    */
   public static int partA(String[] input)
   {
-    PointMap3d map = PointMapFactory.buildMap3d(input);
+    PointSet3d activePoints = PointSetFactory.buildSetOfActivePoints3d(input);
 
     for (int i = 1; i <= 6; i++)
     {
-      // Expand the map and create a clone
-      map.expandMap();
-      PointMap3d newMap = map.getClone();
+      // Create a clone
+      PointSet3d newActivePoints = activePoints.clone();
 
-      for (Point3d point : map.getAllPoints())
+      for (Point3d activePoint : activePoints.getAll())
       {
-        // Count active neighbors
-        int activeNeighborCount = map.getCountActiveAdjacentPoints(point);
-        boolean isActive = map.isActive(point);
+        // Build a set of the point and its neighbors to analyze.
+        // This makes sure we analyze any neighboring inactive
+        // points along with the active points.
+        ArrayList<Point3d> pointsToAnalyze = new ArrayList<>();
+        pointsToAnalyze.add(activePoint);
+        pointsToAnalyze.addAll(activePoints.getAllAdjacent(activePoint));
 
-        // Apply the rules and update the point in the new map if necessary
-        if (isActive && activeNeighborCount != 2 && activeNeighborCount != 3) {
-          newMap.put(point, false);
-        } else if (isActive == false && activeNeighborCount == 3) {
-          newMap.put(point, true);
+        for (Point3d pointToAnalyze : pointsToAnalyze)
+        {
+          boolean isActive = activePoints.contains(pointToAnalyze);
+
+          // Count active neighbors
+          ArrayList<Point3d> adjacentPoints = activePoints.getAllAdjacent(pointToAnalyze);
+          int activeNeighborCount = activePoints.getCountInSet(adjacentPoints);
+
+          // Apply the rules and update the point in the new set if necessary
+          if (isActive && activeNeighborCount != 2 && activeNeighborCount != 3) {
+            newActivePoints.remove(pointToAnalyze);
+          } else if (isActive == false && activeNeighborCount == 3) {
+            newActivePoints.add(pointToAnalyze);
+          }
         }
       }
 
-      map = newMap;
+      activePoints = newActivePoints;
     }
 
-    return map.getCountActivePoints();
+    return activePoints.size();
   }
 
   /**

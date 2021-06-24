@@ -1,6 +1,6 @@
 package day17;
 
-public class PointMapFactory
+public class PointSetFactory
 {
   /**
    * Builds a map of 3d points from an array of strings
@@ -8,9 +8,9 @@ public class PointMapFactory
    * with '#' indicating an active point and '.' indicating
    * an inactive point
    */
-  public static PointMap3d buildMap3d(String[] input)
+  public static PointSet3d buildSetOfActivePoints3d(String[] input)
   {
-    PointMap3d pointsMap = new PointMap3d();
+    PointSet3d pointsMap = new PointSet3d();
     int x = 0;
     int y = 0;
 
@@ -24,7 +24,11 @@ public class PointMapFactory
       {
         Point3d point = new Point3d(x, y, 0);
         boolean isActive = c == '#';
-        pointsMap.put(point, isActive);
+
+        if (isActive) {
+          pointsMap.add(point);
+        }
+
         x++;
       }
       x = 0;
